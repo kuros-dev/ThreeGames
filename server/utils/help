@@ -1,0 +1,133 @@
+load origin
+
+/*
+var material = new THREE.MeshBasicMaterial({ color: 0xff0000, side: THREE.DoubleSide });
+var material2 = new THREE.MeshBasicMaterial({ color: 0x00ff00, side: THREE.DoubleSide });
+var material3 = new THREE.MeshBasicMaterial({ color: 0x0000ff, side: THREE.DoubleSide });  // Use DoubleSide to ensure both sides are visible
+var rectangle1 = new THREE.Mesh(new THREE.BoxGeometry(8, 0.5, 0.5), material);
+var rectangle2 = new THREE.Mesh(new THREE.BoxGeometry(0.5, 8, 0.5), material2);
+var rectangle3 = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.5, 8), material3);
+
+var hand = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), material3);
+
+scene.add(rectangle1)
+scene.add(rectangle2)
+scene.add(rectangle3);
+scene.add(hand)
+
+rectangle1.position.x = 4
+rectangle2.position.y = 4;
+rectangle3.position.z = 4;
+*/
+
+
+para calcular tiempo entre ACESFilmicToneMappingShader, genera un inicio con var = performance.now() y resta
+
+
+function createMap() {
+	
+	solids.ground = [];
+
+	solids.ground.push({		model: models.block1.clone()	})
+	solids.ground.push({		model: models.asset_home.clone()	})
+	solids.ground.push({		model: models.bot.clone()	})
+	solids.ground.push({		model: models.fence.clone()	})
+	solids.ground.push({		model: models.fire.clone()	})
+	solids.ground.push({		model: models.knife.clone()	})
+	solids.ground.push({		model: models.radio.clone()	})
+	solids.ground.push({		model: models.raven.clone()	})
+	solids.ground.push({		model: models.volt_effects.clone()	})
+
+	console.log(solids.ground[0])
+	
+	for (let i = 0; i < 9; i++) {
+		solids.ground[i].model.position.set(i*4, 0, 0)
+	} 
+	
+	for (let element of solids.ground) {
+		scene.add(element.model)
+	};
+}
+
+
+
+function createMap() {
+	
+	solids.ground = [];
+
+	solids.ground.push({		model: models.block1.clone()	})
+	console.log(solids.ground[0])
+	solids.ground[0].model.position.set(-10, -2, 10)
+	solids.ground[0].model.scale.set(20, 0.5, 15)
+
+	solids.ground.push({		model: models.block1.clone()	})
+	solids.ground[1].model.position.set(10, 0, -4)
+	solids.ground[1].model.scale.set(8, 0.7, 7)
+	
+	// +2
+	for (let i = 0; i < 13; i++){
+		solids.ground.push({		model: models.fence.clone()	})
+		solids.ground[2 + i].model.position.set(-9.5 + (6 * i), 0, -48.5)
+	}
+	//+15
+	for (let i = 0; i < 13; i++){
+		solids.ground.push({		model: models.fence.clone()	})
+		solids.ground[15 + i].model.position.set(-9.5 + (6 * i), 0, 10)
+	}
+	// +28
+	for (let i = 0; i < 10; i++){
+		solids.ground.push({		model: models.fence.clone()	})
+		solids.ground[28 + i].model.rotation.y = Math.PI / 2
+		solids.ground[28 + i].model.position.set(-9.2, 0, 9.5 - (i * 6))
+	}
+	// +38
+	for (let i = 0; i < 10; i++){
+		solids.ground.push({		model: models.fence.clone()	})
+		solids.ground[38 + i].model.rotation.y = Math.PI / 2
+		solids.ground[38 + i].model.position.set(68.5, 0, 9.5 - (i * 6))
+	}
+
+	// +48
+	solids.ground.push({		model: models.wooden_box.clone()	})
+	solids.ground.push({		model: models.wooden_box.clone()	})
+	solids.ground.push({		model: models.wooden_box.clone()	})
+	solids.ground.push({		model: models.wooden_box.clone()	})
+	solids.ground.push({		model: models.wooden_box.clone()	})
+
+	solids.ground[48].model.position.set(35, 0, 0);
+	solids.ground[49].model.position.set(38, 0, 1);
+	solids.ground[50].model.position.set(9, 0, -7)
+	solids.ground[51].model.position.set(9, 0, -6)
+	solids.ground[52].model.position.set(9, 1, -7)
+
+	solids.ground.push({		model: models.asset_home.clone()	})
+	solids.ground.push({		model: models.asset_home.clone()	})
+
+	solids.ground[53].model.position.set(8, 0, -37)
+	solids.ground[54].model.position.set(35, 2.7, -18)
+
+	solids.ground.push({		model: models.radio.clone()	})
+
+	solids.ground[55].model.position.set(34, 2.9, -16)
+
+	solids.ground[53].model.rotation.y = Math.PI / 3.5
+	solids.ground[55].model.rotation.y = Math.PI / 3.7
+	
+	for (let element of solids.ground) {
+		scene.add(element.model)
+	};
+}
+
+// model loading as 
+
+function defaultLoader(model, size, extension = ".glb"){
+	loader.load(model + extension, function (gltf) {
+		models[model] = gltf.scene;
+		models[model].scale.set(size.x, size.y, size.z);
+	
+		ready[model] = true;
+	
+	}, undefined, function (error) {
+		console.error(error);
+	});
+}
